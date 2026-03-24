@@ -267,14 +267,6 @@ async def sync(self, ctx, sync_type: str = None):
         if scope == "global":
             synced = await bot.tree.sync()
             await ctx.send(f"Globally synced {len(synced)} commands")
-
-        elif scope == "all":
-            total = 0
-            for gid in BotConfig.GUILD_IDS:
-                synced = await bot.tree.sync(guild=discord.Object(id=gid))
-                total += len(synced)
-            await ctx.send(f"Synced commands to all dev guilds ({len(BotConfig.GUILD_IDS)} guilds).")
-
         else:
             synced = await bot.tree.sync(guild=ctx.guild)
             await ctx.send(f"Synced {len(synced)} commands to **{ctx.guild.name}**")
